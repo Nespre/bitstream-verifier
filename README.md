@@ -12,6 +12,7 @@ Este programa realiza a análise de uma sequência binária para verificar se el
 - [Como Funciona?](#como-funciona)
 - [Como usar?](#como-usar)
 - [Parâmetros](#parâmetros)
+- [Exemplo de Resultado](#exemplo-de-resultado)
 - [Contribuição](#contribuição)
 - [Licença](#licença)
 <br><br>
@@ -90,7 +91,8 @@ Tabela resumo:
 |    1     | ✔ True | —        |
 |    2     | ✘ False | Blocos de tamanho 1 não são mais frequentes |
 |    3     | ✘ False | Padrão [00 1] repete-se |
-<br><br>
+
+<br>
 
 ## Contribuição
 Sinta-se à vontade para contribuir! Abra um pull request ou crie um issue para discutir melhorias.
