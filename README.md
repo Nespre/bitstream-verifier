@@ -90,7 +90,7 @@ Tabela resumo:
 |----------|:------:|----------:|
 |    1     | ✔ True | —        |
 |    2     | ✘ False | Blocos de tamanho 1 não são mais frequentes |
-|    3     | ✘ False | Padrão [00 1] repete-se |
+|    3     | ✘ False | Padrão [00, 1] repete-se |
 
 <br>
 
