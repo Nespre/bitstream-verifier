@@ -1,21 +1,22 @@
-## PRESSUPOSTO DE GOLOMB - Criptografia
+## PRESSUPOSTOS DE GOLOMB - Criptografia
 Ferramenta em Python para análise de sequências binárias com base nos postulados de Golomb: balanceamento, distribuição de sequências e autocorrelação.
 
 Este programa realiza a análise de uma sequência binária para verificar se ela cumpre os três pressupostos de Golomb:
-1. **Proporção entre zeros e uns**: percentagens de 0’s e 1’s dentro de uma margem aceitável.  
-2. **Frequência de subsequências de tamanhos diferentes**: blocos menores devem ocorrer mais vezes que blocos maiores.  
-3. **Distribuição equilibrada de padrões binários**: evita repetições ou “espelhamentos” indesejados.
+1. **Proporção entre zeros e uns**: Percentagens de 0’s e 1’s dentro de uma margem aceitável.  
+2. **Frequência de subsequências de tamanhos diferentes**: Blocos menores devem ocorrer mais vezes que blocos maiores.  
+3. **Distribuição equilibrada de padrões binários**: Evita repetições ou “espelhamentos” indesejados.
 
-<br><br> 
+<br>
 
 ## Índice
 - [Como Funciona?](#como-funciona)
-- [Como usar?](#como-usar)
+- [Como Usar?](#como-usar)
 - [Parâmetros](#parâmetros)
 - [Exemplo de Resultado](#exemplo-de-resultado)
 - [Contribuição](#contribuição)
 - [Licença](#licença)
-<br><br>
+
+<br>
 
 ## Como Funciona?
 
@@ -23,80 +24,87 @@ Este programa realiza a análise de uma sequência binária para verificar se el
    - Analisar uma sequência existente;  
    - Gerar uma nova sequência (aleatória ou que cumpra os pressupostos).
 
-2. **Para análise:** 
+2. **Para Análise:** 
    - Recebe uma sequência binária do usuário.  
-   - Extrai dados básicos (número de bits, blocos contínuos, frequências e tamanhos em ordem).  
-   - Verifica cada um dos três pressupostos, acumulando “compliance”, avisos relevantes e alertas.
+   - Extrai dados básicos: número de bits, blocos contínuos, frequências e tamanhos em ordem.  
+   - Verifica cada um dos três pressupostos, acumulando informações sobre conformidade, avisos relevantes e alertas.
    - Exibe um relatório final com ✔/✘ e mensagens de alerta.
 
-3. **Para geração:**
-   - O usuário pode gerar uma aleatória ou uma nova sequência binária que satisfaça os pressupostos de Golomb.
-   - Pergunta comprimento e quais pressupostos ativar.  
-   - Tenta gerar até 5 000 sequências aleatórias que cumpram os requisitos.  
-   - Mostra a sequência válida criada.
-<br><br>
+3. **Para Geração:**
+   - O usuário pode gerar uma sequência binária aleatória ou que satisfaça os pressupostos de Golomb.
+   - O programa solicita o comprimento da sequência e os pressupostos a serem ativados.  
+   - Tenta gerar até 5.000 sequências aleatórias que cumpram os requisitos.  
+   - Exibe a sequência válida gerada.
 
-## Como usar?
-1. Clone o repositório: <br> `git clone https://github.com/Nespre/bitstream-verifier.git`
+<br>
 
-2. Navegue até o diretório do projeto:  <br> `cd bitstream-verifier`
+## Como Usar?
+1. Clone o repositório:  
+   `git clone https://github.com/Nespre/bitstream-verifier.git`
 
-3. Execute o script Python desejado. Exemplo:  <br> `pressuposto_golomb.py`
-<br><br>
+2. Navegue até o diretório do projeto:  
+   `cd bitstream-verifier`
+
+3. Execute o script Python desejado. Exemplo:  
+   `pressuposto_golomb.py`
+
+<br>
 
 ## Parâmetros
 Estes valores são internos ao programa e representam os dados usados em cada verificação:
 
-- **num_bits** (`dict`): contagens totais
+- **num_bits** (`dict`): Contagens totais de bits
 
         all: número de bits,
-		zeros: contagem de 0’s,
+        zeros: contagem de 0’s,
         ones: contagem de 1’s.
 
-- **runs** (`dict`): listas de blocos contínuos encontrados em
+- **runs** (`dict`): Listas de blocos contínuos encontrados em
 
         all,
         zeros,
         ones.
 
-- **run_frequencies** (`dict`): frequência de ocorrência de cada tamanho de bloco em
+- **run_frequencies** (`dict`): Frequência de ocorrência de cada tamanho de bloco em
 
         all,
         zeros,
         ones.
 
-- **ordered_run_sizes** (`dict`): tamanhos dos blocos, na ordem em que aparecem, em
+- **ordered_run_sizes** (`dict`): Tamanhos dos blocos, na ordem em que aparecem, em
 
         all,
         zeros,
         ones.
 
-- **postulates** (`dict`): para cada pressuposto 1, 2 e 3, armazena:
+- **postulates** (`dict`): Para cada pressuposto (1, 2 e 3), armazena:
 
         comply (bool),
         relevants (list[str]),
         warnings (list[str]).
-<br><br>
+
+<br>
 
 ## Exemplo de Resultado
-Pressupostos de Golomb analisados:
+**Pressupostos de Golomb analisados:**
 1. Proporção (✔)  
 2. Frequência (✘) — “Blocos de tamanho 1 (5) não mais frequentes que tamanho 2 (5)” 
 3. Padrões   (✘) — “Repetição de [00 1]”  
 
-Tabela resumo:
+**Tabela Resumo:**
 
-| Pressup. | Status | Mensagens |
-|----------|:------:|----------:|
-|    1     | ✔ True | —        |
-|    2     | ✘ False | Blocos de tamanho 1 não são mais frequentes |
-|    3     | ✘ False | Padrão [00, 1] repete-se |
+| Pressuposto | Status | Mensagens |
+|-------------|:------:|----------:|
+|     1       |   ✔    | —        |
+|     2       |   ✘    | Blocos de tamanho 1 não são mais frequentes |
+|     3       |   ✘    | Padrão [00, 1] repete-se |
 
 <br>
 
 ## Contribuição
 Sinta-se à vontade para contribuir! Abra um pull request ou crie um issue para discutir melhorias.
-<br><br>
+
+<br>
 
 ## Licença
 Este projeto está licenciado sob a MIT License. Veja LICENSE para mais detalhes.
