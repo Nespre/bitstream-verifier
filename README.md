@@ -1,6 +1,7 @@
-# PRESSUPOSTO DE GOLOMB - Criptografia
-		Ferramenta em Python para análise de sequências binárias com base nos postulados de Golomb: balanceamento, distribuição de sequências e autocorrelação.
-	Este programa realiza a análise de uma sequência binária para verificar se ela cumpre os três pressupostos de Golomb:
+## PRESSUPOSTO DE GOLOMB - Criptografia
+Ferramenta em Python para análise de sequências binárias com base nos postulados de Golomb: balanceamento, distribuição de sequências e autocorrelação.
+
+Este programa realiza a análise de uma sequência binária para verificar se ela cumpre os três pressupostos de Golomb:
 1. **Proporção entre zeros e uns**: percentagens de 0’s e 1’s dentro de uma margem aceitável.  
 2. **Frequência de subsequências de tamanhos diferentes**: blocos menores devem ocorrer mais vezes que blocos maiores.  
 3. **Distribuição equilibrada de padrões binários**: evita repetições ou “espelhamentos” indesejados.
@@ -89,7 +90,7 @@ Tabela resumo:
 |    1     | ✔ True | —        |
 |    2     | ✘ False | Blocos de tamanho 1 não são mais frequentes |
 |    3     | ✘ False | Padrão [00 1] repete-se |
-
+<br><br>
 
 ## Contribuição
 Sinta-se à vontade para contribuir! Abra um pull request ou crie um issue para discutir melhorias.
