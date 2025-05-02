@@ -6,17 +6,18 @@ Este programa realiza a análise de uma sequência binária para verificar se el
 2. **Frequência de subsequências de tamanhos diferentes**: Blocos menores devem ocorrer mais vezes que blocos maiores.  
 3. **Distribuição equilibrada de padrões binários**: Evita repetições ou “espelhamentos” indesejados.
 
-<br>
+<br><br>
 
 ## Índice
 - [Como Funciona?](#como-funciona)
 - [Como Usar?](#como-usar)
 - [Parâmetros](#parâmetros)
+- [Tipos de Verificação](#tipos-de-verificação-por-pressupostos)
 - [Exemplo de Resultado](#exemplo-de-resultado)
 - [Contribuição](#contribuição)
 - [Licença](#licença)
 
-<br>
+<br><br>
 
 ## Como Funciona?
 
@@ -36,7 +37,7 @@ Este programa realiza a análise de uma sequência binária para verificar se el
    - Tenta gerar até 5.000 sequências aleatórias que cumpram os requisitos.  
    - Exibe a sequência válida gerada.
 
-<br>
+<br><br>
 
 ## Como Usar?
 1. Clone o repositório:  
@@ -48,7 +49,7 @@ Este programa realiza a análise de uma sequência binária para verificar se el
 3. Execute o script Python desejado. Exemplo:  
    `pressuposto_golomb.py`
 
-<br>
+<br><br>
 
 ## Parâmetros
 Estes valores são internos ao programa e representam os dados usados em cada verificação:
@@ -83,7 +84,7 @@ Estes valores são internos ao programa e representam os dados usados em cada ve
         relevants (list[str]),
         warnings (list[str]).
 
-<br>
+<br><br>
 
 ## Tipos de Verificação por Pressupostos
 ### Pressuposto 1 – Proporção de Bits
@@ -120,7 +121,7 @@ Verifica se blocos menores ocorrem com mais frequência que blocos maiores.
 	Tamanhos: [1, 1, 2, 2]
 	Contagem: [2, 2]
 	→ Frequências iguais → Não cumpre
-
+<br>
 
 ### Pressuposto 3 – Autocorrelação
 **Função**: `verify_sizes_pattern()`
@@ -196,7 +197,7 @@ Compara padrões entre blocos de 0 e blocos de 1.
 	Blocos 1: [1,1,3,1,1]
 	→ Alternância de padrão [1,1,3,1,1] → Relevante
 
-<br>
+<br><br>
 
 ## Exemplo de Resultado
 **Pressupostos de Golomb analisados:**
@@ -212,12 +213,12 @@ Compara padrões entre blocos de 0 e blocos de 1.
 |     2       |   ✘    | Blocos de tamanho 1 não são mais frequentes |
 |     3       |   ✘    | Padrão [00, 1] repete-se |
 
-<br>
+<br><br>
 
 ## Contribuição
 Sinta-se à vontade para contribuir! Abra um pull request ou crie um issue para discutir melhorias.
 
-<br>
+<br><br>
 
 ## Licença
 Este projeto está licenciado sob a MIT License. Veja LICENSE para mais detalhes.
