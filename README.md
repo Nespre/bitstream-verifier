@@ -104,7 +104,7 @@ A percentagem mínima permitida para cada bit (0 ou 1) depende do comprimento da
 		1's: 25.00%
 		Mínimo permitido: 40.00%
 		→ Não cumpre pressuposto 1
-
+<br>
 
 ### Pressuposto 2 – Frequência de Blocos
 **Função**: `verify_frequency_runs()`
