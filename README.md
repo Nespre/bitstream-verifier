@@ -87,7 +87,8 @@ Estes valores são internos ao programa e representam os dados usados em cada ve
 
 ## Tipos de Verificação por Pressupostos
 ### Pressuposto 1 – Proporção de Bits
-**Função**: `check_first_postulate()`<br>
+**Função**: 
+`check_first_postulate()`<br>
 Verifica se há equilíbrio entre a quantidade de 0’s e 1’s na sequência.
 
 **Regras**:<br>
