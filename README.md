@@ -1,4 +1,4 @@
-## PRESSUPOSTOS DE GOLOMB - Criptografia
+# PRESSUPOSTOS DE GOLOMB - Criptografia
 Ferramenta em Python para análise de sequências binárias com base nos postulados de Golomb: balanceamento, distribuição de sequências e autocorrelação.
 
 Este programa realiza a análise de uma sequência binária para verificar se ela cumpre os três pressupostos de Golomb:
@@ -138,7 +138,7 @@ Exemplo:
 
 	Tamanhos: [1, 2, 2, 1, 1, 2, 1, 1]
 	→ [2,1,1] se repete 2x → ⚠️ Aviso
-
+.
 **FUNÇÃO**: `verify_excessive_run_frequency()`
 Detecta se um tamanho específico aparece demais.
 
@@ -151,7 +151,7 @@ Detecta se um tamanho específico aparece demais.
 
 	Blocos de '1': [1,1,1,1,111]
 	→ 1 aparece 80% → Relevante
-
+.
 **FUNÇÃO**: `verify_successively_same_size()`
 Verifica blocos consecutivos com mesmo tamanho.
 
@@ -165,7 +165,7 @@ Verifica blocos consecutivos com mesmo tamanho.
 
 	Tamanhos: [2,2,2,2,2]
 	→ 5 blocos de tamanho 2 → Relevante
-
+.
 **FUNÇÃO**: `verify_mirror_pattern()`
 Busca padrões simétricos entre blocos.
 
@@ -178,7 +178,7 @@ Busca padrões simétricos entre blocos.
 
 	Blocos: [0,1,0,111,0,1,0]
 	→ Padrão espelhado de 7 blocos → Relevante
-
+.
 **FUNÇÃO**: `verify_match_between_zeros_and_ones()`
 Compara padrões entre blocos de 0 e blocos de 1.
 
