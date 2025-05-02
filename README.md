@@ -88,7 +88,7 @@ Estes valores são internos ao programa e representam os dados usados em cada ve
 
 ## Tipos de Verificação por Pressupostos
 ### Pressuposto 1 – Proporção de Bits
-**Função**: `check_first_postulate()`<br>
+**FUNÇÃO**: `check_first_postulate()`<br>
 Verifica se há equilíbrio entre a quantidade de 0’s e 1’s na sequência.
 
 **Regras**:<br>
@@ -108,7 +108,7 @@ A percentagem mínima permitida para cada bit (0 ou 1) depende do comprimento da
 <br>
 
 ### Pressuposto 2 – Frequência de Blocos
-**Função**: `verify_frequency_runs()`
+**FUNÇÃO**: `verify_frequency_runs()`
 Verifica se blocos menores ocorrem com mais frequência que blocos maiores.
 
 **Regras**:
@@ -124,7 +124,7 @@ Verifica se blocos menores ocorrem com mais frequência que blocos maiores.
 <br>
 
 ### Pressuposto 3 – Autocorrelação
-**Função**: `verify_sizes_pattern()`
+**FUNÇÃO**: `verify_sizes_pattern()`
 Identifica padrões repetidos nos tamanhos dos blocos.
 
 **Regras**:
@@ -139,7 +139,7 @@ Exemplo:
 	Tamanhos: [1, 2, 2, 1, 1, 2, 1, 1]
 	→ [2,1,1] se repete 2x → ⚠️ Aviso
 
-**Função**: `verify_excessive_run_frequency()`
+**FUNÇÃO**: `verify_excessive_run_frequency()`
 Detecta se um tamanho específico aparece demais.
 
 **Regras**:
@@ -152,7 +152,7 @@ Detecta se um tamanho específico aparece demais.
 	Blocos de '1': [1,1,1,1,111]
 	→ 1 aparece 80% → Relevante
 
-**Funçãp**: `verify_successively_same_size()`
+**FUNÇÃO**: `verify_successively_same_size()`
 Verifica blocos consecutivos com mesmo tamanho.
 
 **Regras**:
@@ -166,7 +166,7 @@ Verifica blocos consecutivos com mesmo tamanho.
 	Tamanhos: [2,2,2,2,2]
 	→ 5 blocos de tamanho 2 → Relevante
 
-**Função**: `verify_mirror_pattern()`
+**FUNÇÃO**: `verify_mirror_pattern()`
 Busca padrões simétricos entre blocos.
 
 **Regras**:
@@ -179,7 +179,7 @@ Busca padrões simétricos entre blocos.
 	Blocos: [0,1,0,111,0,1,0]
 	→ Padrão espelhado de 7 blocos → Relevante
 
-**Função**: `verify_match_between_zeros_and_ones()`
+**FUNÇÃO**: `verify_match_between_zeros_and_ones()`
 Compara padrões entre blocos de 0 e blocos de 1.
 
 **Regras** (modo EXATO):
