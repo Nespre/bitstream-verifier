@@ -38,7 +38,7 @@ from re import findall
 from collections import defaultdict
 from random import randint
 
-debug = False
+debug = True
 def debug_print(message: str):
     if debug:
         print(message)
@@ -273,7 +273,7 @@ def check_first_postulate(num_bits: dict, postulates: dict) -> list[dict, float,
     percent_one = round(n_ones / length * 100, 2)
 
     min_percentage = get_min_percentage(length)
-    debug_print(f'\tErro minimo calculado - {min_percentage}%')
+    debug_print(f'\t📐 Erro minimo calculado - {min_percentage}%')
 
     for percentage in [percent_zero, percent_one]:
         if percentage < min_percentage:
@@ -314,7 +314,7 @@ def get_min_percentage(length: int) -> float:
     >> get_min_percentage(25)
     45.3
     """
-    debug_print('\tCalculando erro mínimo permitido')
+    debug_print('\t🎲 Calculando erro mínimo permitido')
     if length <= 10:
         return 40.00
     elif 10 < length <= 20:
@@ -825,7 +825,7 @@ def verify_mirror_pattern(runs: dict) -> tuple[bool, list[str], list[str]]:
                     debug_print(f'\t🧭 Padrão espelhado fraco {runs['all'][start : end+1]}')
                     warnings[center_scan] = (f"Talvez um padrão espelhado? [{' '.join(runs['all'][start : end+1])}]")
                 else:
-                    debug_print(f'\t⚠️ Padrão espelhado forte {runs['all'][start : end+1]}')
+                    debug_print(f'\t⚠️  Padrão espelhado forte {runs['all'][start : end+1]}')
                     comply = False
                     relevants[center_scan] = (f"Padrão espelhado [{' '.join(runs['all'][start : end+1])}]")
 
@@ -875,7 +875,7 @@ def verify_match_between_zeros_and_ones(ordered_run_sizes: dict) -> tuple[bool, 
     []
     """
     debug_print('  🛠️  Verificando coerências entre zeros e uns')
-    relative_sizes: dict[list, list] = classify_run_relative(ordered_run_sizes)
+    relative_sizes: dict[list, list] = get_thresholds_and_labels(ordered_run_sizes)
     relevants = []
     warnings = []
     comply = True
@@ -968,61 +968,88 @@ def verify_match_between_zeros_and_ones(ordered_run_sizes: dict) -> tuple[bool, 
         comply = False
     return [comply, relevants, warnings]
 #
-def classify_run_relative(ordered_run_sizes: dict) -> dict:
+def get_thresholds_and_labels(ordered_run_sizes: dict) -> dict:
     """
-    Classifica os tamanhos dos blocos de zeros e uns em categorias relativas (small → large).
-
-    Cria uma régua baseada nos quartis dos tamanhos totais da sequência e aplica essa escala
-    para categorizar cada bloco como 'small', 'mid_small', 'mid_large' ou 'large', mantendo a ordem original.
+    Classifica os tamanhos dos blocos (runs) em categorias relativas, com base na margem entre
+    o menor e o maior valor da sequência.
 
     :Note:
-    Deve ser usada como suporte para análise relativa de padrões em verify_match_between_zeros_and_ones().
+    - A classificação é baseada nos valores da chave 'all', que representa todos os blocos da sequência.
+    - A régua de classificação se adapta conforme a *margem* (diferença entre valor máximo e mínimo):
+        - Se a margem for 0: todos os blocos são classificados como 'only'.
+        - Margem ≤ 2: dois níveis → 'small', 'large'.
+        - Margem ≤ 4: três níveis → 'small', 'mid', 'large'.
+        - Margem ≤ 8: quatro níveis → 'very_small', 'small', 'mid', 'large'.
+        - Margem > 8: cinco níveis → 'very_small', 'small', 'mid', 'large', 'huge'.
+    - As classificações são aplicadas separadamente nas listas 'zeros' e 'ones', usando a mesma régua baseada na chave 'all'.
 
-    :param ordered_run_sizes: Dicionário com listas ordenadas dos tamanhos dos blocos, incluindo 'zeros', 'ones' e 'all'.
+    :param ordered_run_sizes: Dicionário com listas de tamanhos de blocos. Deve conter as chaves 'all', 'zeros' e 'ones'.
     :type ordered_run_sizes: dict
 
-    :return: Dicionário com os mesmos campos ('zeros', 'ones'), mas com os tamanhos classificados em categorias relativas.
+    :return: Dicionário com os blocos de 'zeros' e 'ones' classificados em categorias relativas.
     :rtype: dict
-
-    :raises KeyError: Se a chave 'all' estiver ausente no dicionário de entrada.
-    :raises ValueError: Se a lista associada à chave 'all' estiver vazia.
 
     :Example:
     >>> ordered_run_sizes = {
-    ...     'zeros': [1, 2, 3, 3],
-    ...     'ones' : [1, 2, 3, 4],
-    ...     'all'  : [1, 2, 3, 3, 1, 2, 3, 4]
+    ...     'all': [1, 2, 2, 1, 1, 1, 1, 3, 3, 1],
+    ...     'zeros': [1, 2, 1, 1, 3],
+    ...     'ones': [2, 1, 1, 3, 1]
     ... }
-    >>> classify_run_relative(ordered_run_sizes)
-    {
-        'zeros': ['small', 'mid_small', 'mid_large', 'mid_large'],
-        'ones' : ['small', 'mid_small', 'mid_large', 'large']
-    }
+    >>> get_thresholds_and_labels(ordered_run_sizes)
+    {'zeros': ['mid', 'large', 'mid', 'mid', 'large'],
+     'ones': ['large', 'mid', 'mid', 'large', 'mid']}
     """
+    debug_print(f'\t🎲 Calculando tamanhos relativos dos blocos')
     sorted_all = sorted(ordered_run_sizes['all'])
+    relative_size = {'zeros': [], 'ones': []}
     min_val = sorted_all[0]
     max_val = sorted_all[-1]
     margin = max_val - min_val
 
     if margin == 0:
-        q1 = q2 = q3 = min_val
+        thresholds = []
+        labels = ['only']
+        debug_print("\t📐 Apenas um valor único → todos classificados como 'only'")
+    elif margin <= 2:
+        # Terços (2 cortes)
+        t1 = min_val + margin * 0.50
+        thresholds = [t1]
+        labels = ['small', 'large']
+        debug_print(f"\t📐 Usando metades → limiares: {thresholds} → ['small', 'large']")
+    elif margin <= 4:
+        # Terços (2 cortes)
+        t1 = min_val + margin * (1 / 3)
+        t2 = min_val + margin * (2 / 3)
+        thresholds = [t1, t2]
+        labels = ['small', 'mid', 'large']
+        debug_print(f"\t📐 Usando terços → limiares: {thresholds} → ['small', 'mid', 'large']")
+    elif margin <= 8:
+        # Quartis (3 cortes)
+        t1 = min_val + margin * 0.25
+        t2 = min_val + margin * 0.50
+        t3 = min_val + margin * 0.75
+        thresholds = [t1, t2, t3]
+        labels = ['very_small', 'small', 'mid', 'large']
+        debug_print(f"\t📐 Usando quartis → limiares: {thresholds} → ['very_small', 'small', 'mid', 'large']")
     else:
-        q1 = min_val + margin * 0.25
-        q2 = min_val + margin * 0.50
-        q3 = min_val + margin * 0.75
-    
-    relative_size = {'zeros': [], 'ones': []}
+        # Quintos (4 cortes)
+        t1 = min_val + margin * (1 / 5)
+        t2 = min_val + margin * (2 / 5)
+        t3 = min_val + margin * (3 / 5)
+        t4 = min_val + margin * (4 / 5)
+        thresholds = [t1, t2, t3, t4]
+        labels = ['very_small', 'small', 'mid', 'large', 'huge']
+        debug_print(f"\t📐 Usando quintos → limiares: {thresholds} → ['very_small', 'small', 'mid', 'large', 'huge']")    
+
+    def classify(run):
+        for i, threshold in enumerate(thresholds):
+            if run <= threshold:
+                return labels[i]
+        return labels[-1]
 
     for bit_type in ['zeros', 'ones']:
         for run in ordered_run_sizes[bit_type]:
-            if run <= q1:
-                relative_size[bit_type].append('small')
-            elif run <= q2:
-                relative_size[bit_type].append('mid_small')
-            elif run <= q3:
-                relative_size[bit_type].append('mid_large')
-            else:
-                relative_size[bit_type].append('large')
+            relative_size[bit_type].append(classify(run))
 
     return relative_size
 
@@ -1322,9 +1349,7 @@ def print_final_output(sequence, num_bits, percent_zeros, percent_ones, min_perc
             print('\t- ' + warning)
     elif postulates[3]['comply']:
         print('  🎉 Nenhum problema encontrado')
-
-        
-
+   
 
 #STARTING CHOICES
 def beginning_text(separator: str) -> str:
