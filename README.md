@@ -87,23 +87,23 @@ Estes valores são internos ao programa e representam os dados usados em cada ve
 
 ## Tipos de Verificação por Pressupostos
 ### Pressuposto 1 – Proporção de Bits
-**Função**: `check_first_postulate()`
+**Função**: `check_first_postulate()`<br>
 Verifica se há equilíbrio entre a quantidade de 0’s e 1’s na sequência.
 
-**Regras**:
-A percentagem mínima permitida para cada bit (0 ou 1) depende do comprimento:
+**Regras**:<br>
+A percentagem mínima permitida para cada bit (0 ou 1) depende do comprimento da sequência:
 - `≤ 10`: 40.00%
 - `11–20`: 0.5 * length + 35 (ex: length 16 → 43.5%)
 - `21–1000`: 41.6 + 1.15 * ln(length)
 - `> 1000`: 49.00%
 
 **Exemplo**:
-<pre>
-Sequência: 00001001
-0's: 75.00%, 1's: 25.00%
-Mínimo permitido: 40.00%
-→ Não cumpre pressuposto 1
-</pre>pre
+
+		Sequência: 00001001
+		0's: 75.00%
+		1's: 25.00%
+		Mínimo permitido: 40.00%
+		→ Não cumpre pressuposto 1
 
 <br>
 
