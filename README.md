@@ -87,8 +87,7 @@ Estes valores são internos ao programa e representam os dados usados em cada ve
 
 ## Tipos de Verificação por Pressupostos
 ### Pressuposto 1 – Proporção de Bits
-**Função**: 
-`check_first_postulate()`<br>
+**Função**: `check_first_postulate()`<br>
 Verifica se há equilíbrio entre a quantidade de 0’s e 1’s na sequência.
 
 **Regras**:<br>
@@ -105,6 +104,97 @@ A percentagem mínima permitida para cada bit (0 ou 1) depende do comprimento da
 		1's: 25.00%
 		Mínimo permitido: 40.00%
 		→ Não cumpre pressuposto 1
+
+
+### Pressuposto 2 – Frequência de Blocos
+**Função**: `verify_frequency_runs()`
+Verifica se blocos menores ocorrem com mais frequência que blocos maiores.
+
+**Regras**:
+- Um bloco de tamanho n deve ser mais frequente que um de tamanho n+1.
+- Se houver empate ou inversão de frequência, o pressuposto é violado.
+- Diferenças muito pequenas geram apenas avisos.
+
+**Exemplo**:
+
+	Tamanhos: [1, 1, 2, 2]
+	Contagem: [2, 2]
+	→ Frequências iguais → Não cumpre
+
+
+### Pressuposto 3 – Autocorrelação
+**Função**: `verify_sizes_pattern()`
+Identifica padrões repetidos nos tamanhos dos blocos.
+
+**Regras**:
+- 2 blocos iguais consecutivos → RELEVANTE
+- 3 blocos com 2 repetições → ⚠️ AVISO
+- 3 blocos com 3+ repetições → RELEVANTE
+- 4+ blocos com 2+ repetições → RELEVANTE
+- Padrões só de tamanho 1 são ignorados
+
+Exemplo:
+
+	Tamanhos: [1, 2, 2, 1, 1, 2, 1, 1]
+	→ [2,1,1] se repete 2x → ⚠️ Aviso
+
+**Função**: `verify_excessive_run_frequency()`
+Detecta se um tamanho específico aparece demais.
+
+**Regras**:
+- Relevante se ultrapassa: max(40, 70 - 14 * log10(num_blocos))
+- Aviso se ultrapassa: max(35, 60 - 14 * log10(num_blocos))
+- Separado para blocos de 0 e de 1.
+
+**Exemplo**:
+
+	Blocos de '1': [1,1,1,1,111]
+	→ 1 aparece 80% → Relevante
+
+**Funçãp**: `verify_successively_same_size()`
+Verifica blocos consecutivos com mesmo tamanho.
+
+**Regras**:
+- Até 3 blocos de tamanho 1–2 → OK
+- 3–4 blocos de tamanho >2 → Relevante
+- 5+ blocos consecutivos (qualquer tamanho) → Relevante
+- 2 blocos consecutivos de tamanho ≥ 4 → Relevante
+
+**Exemplo**:
+
+	Tamanhos: [2,2,2,2,2]
+	→ 5 blocos de tamanho 2 → Relevante
+
+**Função**: `verify_mirror_pattern()`
+Busca padrões simétricos entre blocos.
+
+**Regras**:
+- Padrões de 5 blocos → ⚠️ Aviso
+- Padrões de 7+ blocos → Relevante
+- Só analisa número ímpar de blocos
+
+**Exemplo**:
+
+	Blocos: [0,1,0,111,0,1,0]
+	→ Padrão espelhado de 7 blocos → Relevante
+
+**Função**: `verify_match_between_zeros_and_ones()`
+Compara padrões entre blocos de 0 e blocos de 1.
+
+**Regras** (modo EXATO):
+- Blocos exatamente iguais com mesma quantidade → Relevante
+- Alternância perfeita > 5 blocos → Relevante
+- 3 blocos iguais com soma ≥ 8 → Relevante
+- 3 blocos iguais com soma < 8 → ⚠️ Aviso
+
+**Regras** (modo RELATIVO):
+- Qualquer padrão → ⚠️ Aviso
+
+**Exemplo**:
+
+	Blocos 0: [3,1,1,3,1]
+	Blocos 1: [1,1,3,1,1]
+	→ Alternância de padrão [1,1,3,1,1] → Relevante
 
 <br>
 
