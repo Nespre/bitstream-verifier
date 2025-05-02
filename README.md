@@ -138,7 +138,7 @@ Exemplo:
 
 	Tamanhos: [1, 2, 2, 1, 1, 2, 1, 1]
 	→ [2,1,1] se repete 2x → ⚠️ Aviso
-.
+- 
 _**Função**_: `verify_excessive_run_frequency()`
 Detecta se um tamanho específico aparece demais.
 
@@ -151,7 +151,7 @@ Detecta se um tamanho específico aparece demais.
 
 	Blocos de '1': [1,1,1,1,111]
 	→ 1 aparece 80% → Relevante
-.
+- 
 _**Função**_: `verify_successively_same_size()`
 Verifica blocos consecutivos com mesmo tamanho.
 
@@ -165,7 +165,7 @@ Verifica blocos consecutivos com mesmo tamanho.
 
 	Tamanhos: [2,2,2,2,2]
 	→ 5 blocos de tamanho 2 → Relevante
-.
+- 
 _**Função**_: `verify_mirror_pattern()`
 Busca padrões simétricos entre blocos.
 
@@ -178,7 +178,7 @@ Busca padrões simétricos entre blocos.
 
 	Blocos: [0,1,0,111,0,1,0]
 	→ Padrão espelhado de 7 blocos → Relevante
-.
+- 
 _**Função**_: `verify_match_between_zeros_and_ones()`
 Compara padrões entre blocos de 0 e blocos de 1.
 
@@ -216,7 +216,7 @@ Compara padrões entre blocos de 0 e blocos de 1.
 <br><br>
 
 ## Contribuição
-Sinta-se à vontade para contribuir! Abra um pull request ou crie um issue para discutir melhorias
+Sinta-se à vontade para contribuir! Abra um pull request ou crie um issue para discutir melhorias.
 
 <br><br>
 
