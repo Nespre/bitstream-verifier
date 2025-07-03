@@ -6,7 +6,9 @@ Este programa realiza a análise de uma sequência binária para verificar se el
 2. **Frequência de subsequências de tamanhos diferentes**: Blocos menores devem ocorrer mais vezes que blocos maiores.  
 3. **Distribuição equilibrada de padrões binários**: Evita repetições ou “espelhamentos” indesejados.
 
-<br><br>
+> **Nota:** Este projeto é apenas para fins educacionais.
+
+<br>
 
 ## Índice
 - [Como Funciona?](#como-funciona)
